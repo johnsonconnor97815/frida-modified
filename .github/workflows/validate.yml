@@ -41,3 +41,4 @@ jobs:
         with:
           name: installation-${{ matrix.os }}
           path: .cache/install-*.json
+          include-hidden-files: true

@@ -1,4 +1,16 @@
-# v0.1.0 验证记录
+# 验证记录
+
+## v0.1.1 多 Agent 安装
+
+使用固定的 `skills` CLI `1.5.26`、Node.js `22.20.0` 和 Python `3.12`，在 GitHub Actions 的 Linux、macOS、Windows 环境中验证。6 个目标 Agent 为 Codex、Claude Code、Cursor、Gemini CLI、GitHub Copilot 和 OpenCode。
+
+项目级/全局安装 × 链接/复制模式 × 3 种操作系统，共 12 种组合通过。每种组合执行发现 Skill、首次安装、重复安装、安装列表和卸载；安装后的 28 个文件与源码逐文件比较 SHA-256，覆盖脚本、补丁、引用文档和许可证。Linux/macOS 另从安装目录执行下载脚本 `--help`，Windows 只验证安装和 Python 语法，不执行依赖 POSIX `fcntl` 的设备脚本。
+
+[首次通过的 CI](https://github.com/johnsonconnor97815/frida-modified/actions/runs/35082801999) 对应提交 `998dc16f846d6c25c3a738429d8dba5627999c1b`；原有 23 项行为测试在 Python 3.10、3.12 下继续通过。[安装说明](INSTALL.md) 包含复现命令。
+
+安装验证没有调用各 Agent 的模型服务，也没有重新进行 Frida 构建或 Android 实机回归。安装支持的操作系统和 Frida 构建支持的操作系统分别记录；实机结论仍以以下 `v0.1.0` 记录为准。
+
+## v0.1.0 Frida 构建与实机验证
 
 验证日期：2026-09-16 UTC。环境为 Linux x86_64、Pixel 3 / Android 12 / API 31 / ARM64，Frida `17.18.0`，frida-tools `14.10.4`。构建使用 NDK `29.0.14206865`、JDK 17、Android SDK API 29 和 build-tools `36.0.0`。
 
