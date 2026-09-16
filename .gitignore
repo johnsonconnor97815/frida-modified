@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.venv/
+.cache/
+*.log
+evidence/
+runs/
+*.apk
+*.so
+*.whl
+*.xz
+*.zip
+*.tar*
+.DS_Store

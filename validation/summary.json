@@ -1,0 +1,135 @@
+{
+  "schema": 1,
+  "frida_version": "17.18.0",
+  "frida_tools_version": "14.10.4",
+  "device": {
+    "model": "Pixel 3",
+    "android": "12",
+    "api": 31,
+    "abi": "arm64"
+  },
+  "host": "Linux x86_64",
+  "unit_tests": 23,
+  "skill_format": "passed",
+  "app_tests": {
+    "official": {
+      "pass": true,
+      "checks": 102,
+      "rounds": 2,
+      "screenshots": 10,
+      "cleanup_errors": []
+    },
+    "rebuilt": {
+      "pass": true,
+      "checks": 102,
+      "rounds": 2,
+      "screenshots": 10,
+      "cleanup_errors": []
+    }
+  },
+  "runtime_tests": {
+    "rebuilt-native-qjs": {
+      "pass": true,
+      "arch": "arm64",
+      "runtime": "QJS",
+      "capabilities": {
+        "native-attach": "passed",
+        "native-hook": "passed",
+        "rpc": "passed",
+        "file-io": "passed",
+        "unload-detach": "passed",
+        "qjs": "passed"
+      }
+    },
+    "rebuilt-native-v8": {
+      "pass": true,
+      "arch": "arm64",
+      "runtime": "V8",
+      "capabilities": {
+        "native-spawn": "passed",
+        "native-hook": "passed",
+        "rpc": "passed",
+        "file-io": "passed",
+        "unload-detach": "passed",
+        "v8": "passed"
+      }
+    },
+    "rebuilt-gadget-arm64": {
+      "pass": true,
+      "arch": "arm64",
+      "runtime": "QJS",
+      "capabilities": {
+        "gadget-harness": "passed",
+        "native-hook": "passed",
+        "rpc": "passed",
+        "file-io": "passed",
+        "unload-detach": "passed",
+        "qjs": "passed"
+      }
+    },
+    "rebuilt-gadget-arm": {
+      "pass": true,
+      "arch": "arm",
+      "runtime": "QJS",
+      "capabilities": {
+        "gadget-harness": "passed",
+        "native-hook": "passed",
+        "rpc": "passed",
+        "file-io": "passed",
+        "unload-detach": "passed",
+        "qjs": "passed"
+      }
+    }
+  },
+  "artifacts": [
+    {
+      "name": "frida-server",
+      "sha256": "f16fd029e0b92a5d7039fb715c84f1d2e1150e30396667b0b8126bcc53e76b7a"
+    },
+    {
+      "name": "system-worker",
+      "sha256": "f16fd029e0b92a5d7039fb715c84f1d2e1150e30396667b0b8126bcc53e76b7a"
+    },
+    {
+      "name": "libshadow-agent.so",
+      "sha256": "8ddb61ff45b8ed41bda2b85f042faf46215464efe5212929bbc3c826181f5eff",
+      "arch": "arm64",
+      "soname": "libshadow-agent.so"
+    },
+    {
+      "name": "libshadow-agent.so",
+      "sha256": "6242dda517bd5eb1e9df7e4a8471f8557d05bd89b042192584f55d90fa0989b0",
+      "arch": "arm",
+      "soname": "libshadow-agent.so"
+    },
+    {
+      "name": "libshadow-gadget.so",
+      "sha256": "a368b75f788c1997142b16c7dc3c77e82bfbbe16510d71027018f44fc9a2d67f",
+      "arch": "arm64",
+      "soname": "libshadow-gadget.so"
+    },
+    {
+      "name": "libshadow-gadget.so",
+      "sha256": "8bf931b4066732183688bd7ff0d5de968568d1aeec1f0b8dd7064bdf8d170ea0",
+      "arch": "arm",
+      "soname": "libshadow-gadget.so"
+    },
+    {
+      "name": "frida-17.18.0-cp37-abi3-linux_x86_64.whl",
+      "sha256": "f4aae3a431e935162577611f404a0a8f450d8721fdde4633b9eee0a2dbc1deb4"
+    }
+  ],
+  "deployment_failure_test": {
+    "candidate_result": "failed as expected",
+    "rollback": "verified",
+    "restored_function": "passed"
+  },
+  "final_original_service_restore": "passed",
+  "limitations": [
+    "Android 10 not tested",
+    "ARM32 Java and APK-integrated Gadget not tested",
+    "One startup ART SIGSEGV occurred before moving non-startup native checks after UI readiness; root cause is not proven eliminated",
+    "Native attach/spawn in this release validation used ARM64; ARM32 used the Gadget harness",
+    "Name changes do not prove anti-Frida detection evasion"
+  ]
+}
