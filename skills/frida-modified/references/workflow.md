@@ -1,9 +1,9 @@
 # 操作与证据
 
-命令中的 `SKILL` 指安装目录，`RUN` 指使用者新建的任务目录。以下变量均为本次任务输入，不是 Skill 内置设备或版本。脚本要求 Python 3.10+；设备侧脚本依赖 ADB，功能测试还需要匹配版 `frida`。构建适配器首版针对 Linux x86_64 主机。
+命令中的 `SKILL` 指包含 `SKILL.md` 的实际安装目录，从 Agent 加载本 Skill 时提供的路径取得；`RUN` 指使用者新建的任务目录。下例先将 `SKILL` 替换为实际绝对路径，适用于全局、项目级或插件安装。以下变量均为本次任务输入，不是 Skill 内置设备或版本。脚本要求 Python 3.10+；设备侧脚本依赖 ADB，功能测试还需要匹配版 `frida`。构建适配器首版针对 Linux x86_64 主机。
 
 ```bash
-SKILL="$HOME/.codex/skills/frida-modified"
+SKILL="/absolute/path/to/frida-modified"
 RUN="$PWD/frida-run"
 mkdir "$RUN"
 python3 "$SKILL/scripts/inspect_device.py" --serial "$SERIAL" --check-root --output "$RUN/device.json"

@@ -7,6 +7,8 @@ description: 根据目标 Android 设备选择适配的 Frida 版本，下载源
 
 从目标设备和所需能力开始。当前附带 `17.18.0` 的明确版本案例；其他版本先检查上游，再适配补丁和构建方法。
 
+以 Agent 加载本文件时提供的目录为 Skill 根目录；本文及引用文档中的 `scripts/`、`references/`、`assets/` 均相对于该目录。执行脚本时使用解析后的绝对路径，不假设安装在某个 Agent 的固定目录。
+
 ## 工作流程
 
 1. **确认设备和需求。** 区分 Android 设备与构建主机。优先使用用户指定的序列号；多台设备且目标不明时询问。运行 `scripts/inspect_device.py`，记录 Android/API、ROM、ABI、root/SELinux、主机环境；涉及 Java 时补充可取得的 ART 信息。区分 server/Gadget，列出必需和可选能力；没有目标 App 时保留其 ABI、启动和集成行为未测的限制。
