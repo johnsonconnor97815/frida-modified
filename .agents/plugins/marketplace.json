@@ -1,0 +1,20 @@
+{
+  "name": "frida-modified",
+  "interface": {
+    "displayName": "Frida Modified"
+  },
+  "plugins": [
+    {
+      "name": "frida-modified",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

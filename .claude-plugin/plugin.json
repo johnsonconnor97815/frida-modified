@@ -1,0 +1,11 @@
+{
+  "name": "frida-modified",
+  "version": "0.1.2",
+  "description": "按目标 Android 设备选择 Frida 版本，完成定制修改、构建、对照验证和部署。",
+  "author": {
+    "name": "johnsonconnor97815"
+  },
+  "homepage": "https://github.com/johnsonconnor97815/frida-modified",
+  "repository": "https://github.com/johnsonconnor97815/frida-modified",
+  "skills": "./skills/"
+}

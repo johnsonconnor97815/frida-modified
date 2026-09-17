@@ -4,7 +4,41 @@
 
 附带 Frida `17.18.0` 的 commit 固定补丁与 Linux x86_64 构建适配。版本选择不会默认套用最新版本；其他版本按实际源码和目标设备补充适配。当前案例来自 Pixel 3 / Android 12，Android 10 尚无本项目的实机验证。
 
-## 一键安装
+## 在 Codex / Claude Code 中从 Git 仓库安装
+
+**Claude Code 会话内**依次输入：
+
+```text
+/plugin marketplace add johnsonconnor97815/frida-modified
+/plugin install frida-modified@frida-modified
+/reload-plugins
+```
+
+安装后用 `/frida-modified:frida-modified` 调用。也可在终端执行：
+
+```bash
+claude plugin marketplace add johnsonconnor97815/frida-modified
+claude plugin install frida-modified@frida-modified
+```
+
+**Codex CLI** 在终端执行：
+
+```bash
+codex plugin marketplace add johnsonconnor97815/frida-modified
+codex plugin add frida-modified@frida-modified
+```
+
+随后打开新的 Codex 会话，通过 `/plugins` 查看，输入 `$` 选择插件提供的 `frida-modified` Skill。
+
+**Codex 会话内**也可以直接让内置安装器从仓库安装普通 Skill：
+
+```text
+使用 $skill-installer 从 https://github.com/johnsonconnor97815/frida-modified 安装 skills/frida-modified。
+```
+
+这一方式下一轮即可使用 `$frida-modified`；若未出现，重启会话。原生插件安装无需 `npx skills`；需使用提供 `plugin` 子命令的 CLI。选择一种安装方式即可，避免同时安装插件版和普通 Skill 版。版本条件、更新与卸载见 [安装说明](INSTALL.md)。
+
+## 通用一键安装（多 Agent）
 
 先安装 Node.js **22.20.0+**（含 npm/npx）和 Git。在终端执行以下一条命令，同时安装到 Codex 和 Claude Code，所有项目均可使用：
 
@@ -20,7 +54,7 @@ npx --yes skills@1.5.26 add johnsonconnor97815/frida-modified --skill frida-modi
 
 去掉 `--global` 即安装到当前项目；Windows 可以追加 `--copy` 使用文件复制。命令固定使用已验证的 `skills` CLI `1.5.26`，Skill 内容取自本仓库的默认分支。`--yes` 会直接替换安装目录中的同名 Skill；旧版手动软链迁移、固定版本安装、更新和卸载见 [安装说明](INSTALL.md)。
 
-## 使用
+## 使用普通 Skill
 
 Codex 中输入：
 

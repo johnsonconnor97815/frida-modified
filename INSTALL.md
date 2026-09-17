@@ -1,6 +1,88 @@
 # 安装 frida-modified
 
-本 Skill 使用标准 `SKILL.md` 目录，由 [vercel-labs/skills](https://github.com/vercel-labs/skills/tree/v1.5.26) 安装。以下命令固定 CLI `1.5.26`，需要 Node.js **22.20.0+**（含 npm/npx）、Git 和 GitHub 网络访问；无需登录 GitHub。
+本仓库同时提供 Codex 原生插件、Claude Code 原生插件和标准 `SKILL.md`。插件和普通 Skill 使用同一份 `skills/frida-modified/` 内容。选择一种方式即可，避免同名技能重复出现。
+
+## Codex CLI 原生 Git 安装
+
+在终端执行：
+
+```bash
+codex plugin marketplace add johnsonconnor97815/frida-modified
+codex plugin add frida-modified@frida-modified
+```
+
+第一条命令克隆仓库并注册其中的插件市场；第二条安装市场中的插件。完整 Git URL `https://github.com/johnsonconnor97815/frida-modified.git` 也可以作为第一条命令的参数。
+
+打开新的 Codex 会话，通过 `/plugins` 查看插件，输入 `$` 选择它提供的 `frida-modified` Skill。需要固定版本时，首次添加市场可追加 `--ref v0.1.2`。
+
+更新默认分支上的插件：
+
+```bash
+codex plugin marketplace upgrade frida-modified
+codex plugin add frida-modified@frida-modified
+```
+
+卸载：
+
+```bash
+codex plugin remove frida-modified@frida-modified
+codex plugin marketplace remove frida-modified
+```
+
+命令依据 [Codex CLI 官方文档](https://developers.openai.com/codex/cli/reference#codex-plugin)。本项目用 `codex-cli 0.154.0` 验证；插件命令在官方文档中仍标为实验功能。先用 `codex plugin --help` 检查当前版本；没有该子命令时，可以使用下面的内置 Skill 安装器。
+
+### 在 Codex 会话里直接给出仓库
+
+输入下面这句话即可：
+
+```text
+使用 $skill-installer 从 https://github.com/johnsonconnor97815/frida-modified 安装 skills/frida-modified。
+```
+
+这是普通 Skill 安装方式，使用 Codex 内置的 `$skill-installer`，无需插件市场或 Node.js。安装后下一轮可用 `$frida-modified`；若未出现，重启会话。已存在同名目录时，安装器会停止，先处理已有版本再安装。
+
+## Claude Code CLI 原生 Git 安装
+
+在 Claude Code 交互会话里依次输入：
+
+```text
+/plugin marketplace add johnsonconnor97815/frida-modified
+/plugin install frida-modified@frida-modified
+/reload-plugins
+```
+
+也可以直接从终端安装到用户范围：
+
+```bash
+claude plugin marketplace add johnsonconnor97815/frida-modified
+claude plugin install frida-modified@frida-modified --scope user
+```
+
+市场参数也接受完整 Git URL。插件版使用命名空间调用：
+
+```text
+/frida-modified:frida-modified 先识别指定的 Android 设备，再推荐 Frida 版本并规划修改。
+```
+
+需要固定版本时，用 `https://github.com/johnsonconnor97815/frida-modified.git#v0.1.2` 作为市场来源。默认分支安装的更新命令：
+
+```bash
+claude plugin marketplace update frida-modified
+claude plugin update frida-modified@frida-modified
+```
+
+在当前会话执行 `/reload-plugins` 或重启 Claude Code 后使用更新。卸载：
+
+```bash
+claude plugin uninstall frida-modified@frida-modified
+claude plugin marketplace remove frida-modified
+```
+
+命令依据 [Claude Code 官方插件市场文档](https://code.claude.com/docs/en/plugin-marketplaces)。本项目用 Claude Code `2.1.273` 验证；其他版本以 `claude plugin --help` 为准。普通 Skill 的 `/frida-modified` 与插件的 `/frida-modified:frida-modified` 是两种不同安装方式的入口。
+
+## 使用通用 skills CLI
+
+以下命令使用 [vercel-labs/skills](https://github.com/vercel-labs/skills/tree/v1.5.26) 的固定版本 `1.5.26`，需要 Node.js **22.20.0+**（含 npm/npx）、Git 和 GitHub 网络访问；无需登录 GitHub。
 
 ## 选择 Agent 和安装范围
 
@@ -54,7 +136,7 @@ Codex 路径依据 [官方 Skill 文档](https://developers.openai.com/codex/ski
 默认分支适合跟进后续修复。需要固定本次发布内容时，使用 tag URL：
 
 ```bash
-npx --yes skills@1.5.26 add https://github.com/johnsonconnor97815/frida-modified/tree/v0.1.1/skills/frida-modified --skill frida-modified --agent codex claude-code --global --yes
+npx --yes skills@1.5.26 add https://github.com/johnsonconnor97815/frida-modified/tree/v0.1.2/skills/frida-modified --skill frida-modified --agent codex claude-code --global --yes
 ```
 
 查看安装结果：
@@ -93,3 +175,11 @@ python3 scripts/check_installation.py --cli .cache/install-cli/node_modules/skil
 默认在临时项目安装，并在结束时清理。`--scope global` 只供设置了 `CI=true` 的一次性 CI 用户使用，且遇到已有同名安装会拒绝执行。公开仓库取包可加 `--source johnsonconnor97815/frida-modified`；该检查要求远端 Skill 与当前源码一致。
 
 这些检查验证安装路径、资源完整性和 CLI 管理流程。它们不代表已登录每个 Agent 完成一次模型调用，也不扩展 [Frida 实机验证范围](VALIDATION.md)。
+
+原生插件检查由 `scripts/check_native_installation.py` 执行，要求使用一次性容器或 `CI=true` 的干净 CI 用户。它会修改该测试用户的插件配置；已有同名插件或市场时拒绝执行。检查两套 CLI 的市场添加、安装、资源 SHA-256、发现 Skill、重装和卸载，不调用模型服务。命令示例：
+
+```bash
+python3 scripts/check_native_installation.py --record .cache/native-install.json
+```
+
+加 `--source johnsonconnor97815/frida-modified` 可测试公开 Git 来源；不传时使用当前仓库目录。原生插件验证不替代上述跨平台普通 Skill 安装验证。

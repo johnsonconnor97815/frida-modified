@@ -42,3 +42,27 @@ jobs:
           name: installation-${{ matrix.os }}
           path: .cache/install-*.json
           include-hidden-files: true
+  native-plugins:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.20.0'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned agent CLIs
+        run: npm install --global @openai/codex@0.154.0 @anthropic-ai/claude-code@2.1.273
+      - name: Validate Claude manifests
+        run: |
+          claude plugin validate .claude-plugin/plugin.json --strict
+          claude plugin validate .claude-plugin/marketplace.json --strict
+      - name: Verify native install and uninstall without model calls
+        run: python scripts/check_native_installation.py --record .cache/native-install.json --log .cache/native-install-log.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: native-plugins
+          path: .cache/native-install*.json
+          include-hidden-files: true

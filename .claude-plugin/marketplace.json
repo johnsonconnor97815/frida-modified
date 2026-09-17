@@ -1,0 +1,14 @@
+{
+  "name": "frida-modified",
+  "owner": {
+    "name": "johnsonconnor97815"
+  },
+  "plugins": [
+    {
+      "name": "frida-modified",
+      "source": "./",
+      "description": "按目标 Android 设备选择 Frida 版本，完成定制修改、构建、对照验证和部署。"
+    }
+  ],
+  "description": "Android Frida 定制 Skill 的 Git 仓库安装入口。"
+}
