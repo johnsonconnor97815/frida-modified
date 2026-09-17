@@ -176,7 +176,7 @@ python3 scripts/check_installation.py --cli .cache/install-cli/node_modules/skil
 
 这些检查验证安装路径、资源完整性和 CLI 管理流程。它们不代表已登录每个 Agent 完成一次模型调用，也不扩展 [Frida 实机验证范围](VALIDATION.md)。
 
-原生插件检查由 `scripts/check_native_installation.py` 执行，要求使用一次性容器或 `CI=true` 的干净 CI 用户。它会修改该测试用户的插件配置；已有同名插件或市场时拒绝执行。检查两套 CLI 的市场添加、安装、资源 SHA-256、发现 Skill、重装和卸载，不调用模型服务。命令示例：
+原生插件检查由 `scripts/check_native_installation.py` 执行，要求使用一次性容器或 `CI=true` 的干净 CI 用户。它会修改该测试用户的插件配置；已有同名插件或市场时拒绝执行。检查两套 CLI 的市场添加、安装、资源 SHA-256、发现 Skill、重装和卸载；Git 来源另检查市场更新和插件更新，不调用模型服务。命令示例：
 
 ```bash
 python3 scripts/check_native_installation.py --record .cache/native-install.json

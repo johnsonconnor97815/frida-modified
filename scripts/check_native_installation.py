@@ -79,12 +79,15 @@ def check(args):
                 if cli == 'claude':
                     inventory = run('claude', 'plugin', 'details', PLUGIN)
                     require(NAME in inventory and 'skill' in inventory.lower(), 'Claude did not discover plugin skill')
-                refresh = 'upgrade' if cli == 'codex' else 'update'
-                run(cli, 'plugin', 'marketplace', refresh, NAME)
-                run(cli, 'plugin', 'add' if cli == 'codex' else 'update', PLUGIN)
-                for path in payloads:
-                    require(snapshot(path.parent) == expected, f'{cli} update changed skill payload')
-                checks[cli] = {'update': True, 'marketplace': True, 'install': True, 'reinstall': True,
+                git_source = not Path(args.source).exists()
+                if git_source:
+                    refresh = 'upgrade' if cli == 'codex' else 'update'
+                    run(cli, 'plugin', 'marketplace', refresh, NAME)
+                    run(cli, 'plugin', 'add' if cli == 'codex' else 'update', PLUGIN)
+                    for path in payloads:
+                        require(snapshot(path.parent) == expected, f'{cli} update changed skill payload')
+                checks[cli] = {'git_update': True if git_source else 'not_applicable_local_source',
+                               'marketplace': True, 'install': True, 'reinstall': True,
                                'listed': True, 'files_verified': len(expected)}
             except Exception as error:
                 primary_error = error

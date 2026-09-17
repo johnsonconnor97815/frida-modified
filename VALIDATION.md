@@ -6,6 +6,7 @@
 
 - Codex 与 Claude Code 的插件清单通过格式校验；复用同一份 `skills/frida-modified/`。
 - 两套 CLI 均完成添加市场、安装、重复安装、列表与卸载；缓存内 28 个 Skill 文件与源码逐文件比较 SHA-256。
+- 使用公开 Git URL 完成两套 CLI 的安装、市场更新、插件更新和卸载。CI 的本地目录来源不执行仅适用于 Git 的市场更新。
 - Codex 列表显示插件已安装并启用；Claude Code 的组件清单显示 1 个 Skill：`frida-modified`。
 - Codex 内置 `$skill-installer` 从公开仓库安装到临时目录，28 个文件与源码一致。
 - 原有 `skills` CLI 安装检查和 23 项行为测试继续通过。
